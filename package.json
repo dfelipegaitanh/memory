@@ -1,11 +1,13 @@
 {
-  "name": "memory-2",
+  "name": "memory-game",
+  "author": "Felipe Gaitan",
   "version": "1.0.0",
-  "description": "Skeleton Application",
-  "main": "index.js",
+  "description": "Memory Game built with Vue.js and Tailwind CSS",
+  "private": true,
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -14,24 +16,33 @@
     "format": "prettier --write .",
     "prepare": "husky install"
   },
-  "private": true,
   "engines": {
     "node": ">=14.0.0"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "vue": "^3.3.4"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.22.9",
     "@types/jest": "^29.5.3",
     "@types/node": "^18.16.0",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vue/test-utils": "^2.4.1",
+    "@vue/vue3-jest": "^29.2.4",
+    "autoprefixer": "^10.4.14",
+    "babel-jest": "^29.6.1",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-jest": "^27.2.2",
+    "eslint-plugin-vue": "^9.15.1",
     "husky": "^8.0.0",
     "jest": "^29.6.1",
-    "nodemon": "^3.0.1",
+    "jest-environment-jsdom": "^29.6.1",
+    "postcss": "^8.4.27",
     "prettier": "^3.0.0",
+    "tailwindcss": "^3.3.3",
     "ts-jest": "^29.1.1",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "vite": "^4.4.7"
   }
 }
