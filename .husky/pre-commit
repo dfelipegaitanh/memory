@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run format command and provide error message if it fails
+echo "Running code formatting..."
+if ! npm run format; then
+  echo "❌ Error: Code formatting failed. Please fix the formatting issues before committing."
+  exit 1
+fi
+
+# Run tests and provide error message if they fail
+echo "Running tests..."
+if ! npm test; then
+  echo "❌ Error: Tests failed. Please fix the failing tests before committing."
+  exit 1
+fi
+
+echo "✅ Pre-commit checks passed successfully!"
