@@ -119,6 +119,7 @@ When making significant changes to the codebase, especially to critical componen
 - Include any lessons learned that might prevent similar bugs
 - If the fix introduces a new pattern or approach, document it here
 - Place detailed bug documentation files in the `.bugs` directory
+- The file must have a timestamp in yyyy-MM-dd_hh-mm format at the end, example: `bugfix-2023-01-01_12-34.md`.
 
 #### **For New Features**:
 
@@ -126,6 +127,7 @@ When making significant changes to the codebase, especially to critical componen
 - For features that require specific usage patterns, include examples
 - Document any non-obvious design decisions that future developers should understand
 - Place detailed feature documentation files in the `.features` directory
+- - The file must have a timestamp in yyyy-MM-dd_hh-mm format at the end, example: `feature-2023-01-01_12-34.md`.
 
 ### Documentation Format
 
