@@ -44,8 +44,8 @@ High-level modules should depend on abstractions (e.g., interfaces) rather than 
 
 ### Testing Practices
 
-- Write unit tests for business logic.
-- Write feature tests for integration and end-to-end testing.
+- ** Always ** Write unit tests for business logic if needed.
+- ** Always ** Write feature tests for integration and end-to-end testing if needed.
 - For typescript, use jest and for php use pest
 
 #### Explanation
