@@ -105,24 +105,27 @@ When making significant changes to the codebase, especially to critical componen
 ### Where to Document
 
 #### **For Critical Enhancements**:
-   - Update this guidelines document with a brief description of the enhancement
-   - Include the rationale behind the change
-   - Document any new patterns or approaches that other developers should follow
-   - Add examples if the enhancement introduces new coding patterns
-   - Place detailed enhancement documentation files in the `.enhancements` directory
+
+- Update this guidelines document with a brief description of the enhancement
+- Include the rationale behind the change
+- Document any new patterns or approaches that other developers should follow
+- Add examples if the enhancement introduces new coding patterns
+- Place detailed enhancement documentation files in the `.enhancements` directory
 
 #### **For Bug Fixes**:
-   - For significant bug fixes that affect core functionality or behavior
-   - Document the root cause of the bug and the solution implemented
-   - Include any lessons learned that might prevent similar bugs
-   - If the fix introduces a new pattern or approach, document it here
-   - Place detailed bug documentation files in the `.bugs` directory
+
+- For significant bug fixes that affect core functionality or behavior
+- Document the root cause of the bug and the solution implemented
+- Include any lessons learned that might prevent similar bugs
+- If the fix introduces a new pattern or approach, document it here
+- Place detailed bug documentation files in the `.bugs` directory
 
 #### **For New Features**:
-   - If the feature introduces new development patterns, add them to this guidelines document
-   - For features that require specific usage patterns, include examples
-   - Document any non-obvious design decisions that future developers should understand
-   - Place detailed feature documentation files in the `.features` directory
+
+- If the feature introduces new development patterns, add them to this guidelines document
+- For features that require specific usage patterns, include examples
+- Document any non-obvious design decisions that future developers should understand
+- Place detailed feature documentation files in the `.features` directory
 
 ### Documentation Format
 
@@ -134,7 +137,7 @@ When adding documentation to this guidelines document:
 - Reference related documentation or external resources when relevant
 - Organize information under appropriate headings
 
-## Additional Guidelines 
+## Additional Guidelines
 
 - Use consistent naming conventions for variables, functions, and classes.
 - Avoid using global variables and functions.

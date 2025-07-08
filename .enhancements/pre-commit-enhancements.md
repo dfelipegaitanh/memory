@@ -5,6 +5,7 @@ This document explains the enhancements made to the pre-commit hook to make it m
 ## Added Checks
 
 ### 1. Merge Conflict Detection
+
 ```sh
 # Check for merge conflicts
 echo "Checking for merge conflicts..."
@@ -13,12 +14,15 @@ if grep -r "<<<<<<< HEAD" --include="*.js" --include="*.ts" --include="*.php" --
   exit 1
 fi
 ```
+
 **Benefits:**
+
 - Prevents committing files with unresolved merge conflicts
 - Avoids breaking the codebase with conflict markers
 - Ensures clean, working code in the repository
 
 ### 2. Large File Detection
+
 ```sh
 # Check for large files
 echo "Checking for large files..."
@@ -28,12 +32,15 @@ if find . -type f -not -path "./node_modules/*" -not -path "./vendor/*" -size +1
   exit 1
 fi
 ```
+
 **Benefits:**
+
 - Prevents accidentally committing large files that should be in .gitignore
 - Keeps the repository size manageable
 - Improves clone and fetch times for all developers
 
 ### 3. TypeScript Type Checking
+
 ```sh
 # Run TypeScript type checking
 echo "Running TypeScript type checking..."
@@ -42,12 +49,15 @@ if [ -f "tsconfig.json" ] && ! npx tsc --noEmit; then
   exit 1
 fi
 ```
+
 **Benefits:**
+
 - Catches type errors before they reach the codebase
 - Enforces type safety across the project
 - Prevents runtime errors caused by type mismatches
 
 ### 4. Test Coverage Threshold
+
 ```sh
 # Check test coverage (if tests exist)
 if [ -d "tests" ] || [ -d "__tests__" ] || [ -d "src/__tests__" ]; then
@@ -58,12 +68,15 @@ if [ -d "tests" ] || [ -d "__tests__" ] || [ -d "src/__tests__" ]; then
   fi
 fi
 ```
+
 **Benefits:**
+
 - Ensures adequate test coverage for new code
 - Encourages developers to write tests for their code
 - Reduces the likelihood of bugs and regressions
 
 ### 5. PHP Static Analysis
+
 ```sh
 # Run PHP static analysis if PHPStan is available
 if [ -f "vendor/bin/phpstan" ]; then
@@ -74,12 +87,15 @@ if [ -f "vendor/bin/phpstan" ]; then
   fi
 fi
 ```
+
 **Benefits:**
+
 - Detects potential bugs and errors in PHP code
 - Enforces type safety in PHP
 - Improves code quality and reduces technical debt
 
 ### 6. PHP Code Quality Checks
+
 ```sh
 # Run PHP code quality checks if Rector is available
 if [ -f "vendor/bin/rector" ]; then
@@ -90,12 +106,15 @@ if [ -f "vendor/bin/rector" ]; then
   fi
 fi
 ```
+
 **Benefits:**
+
 - Ensures PHP code follows best practices
 - Identifies potential improvements to code structure
 - Maintains consistent code quality across the project
 
 ### 7. PHP Code Formatting
+
 ```sh
 # Run PHP code formatting if Laravel Pint is available
 if [ -f "vendor/bin/pint" ]; then
@@ -106,13 +125,16 @@ if [ -f "vendor/bin/pint" ]; then
   fi
 fi
 ```
+
 **Benefits:**
+
 - Ensures consistent code style across PHP files
 - Enforces PSR-12 coding standards as specified in the project guidelines
 - Automates formatting to reduce manual effort and code review comments
 - Improves code readability and maintainability
 
 ### 8. Security Vulnerability Checks
+
 ```sh
 # Check for security vulnerabilities in dependencies
 echo "Checking for security vulnerabilities..."
@@ -128,7 +150,9 @@ if command -v composer > /dev/null && [ -f "composer.lock" ]; then
   fi
 fi
 ```
+
 **Benefits:**
+
 - Identifies security vulnerabilities in dependencies
 - Raises awareness of potential security issues
 - Encourages regular dependency updates
