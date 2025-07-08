@@ -35,12 +35,14 @@ This memory game challenges players to find matching pairs of cards by flipping 
 ### Installation
 
 1. Clone the repository
+
 ```bash
 git clone https://github.com/yourusername/memory-game.git
 cd memory-game
 ```
 
 2. Install dependencies
+
 ```bash
 npm install
 # or
@@ -48,6 +50,7 @@ yarn
 ```
 
 3. Start the development server
+
 ```bash
 npm run dev
 # or
@@ -61,6 +64,7 @@ yarn dev
 Here are some features planned for future implementation:
 
 ### Game Enhancements
+
 - Multiple difficulty levels (easy, medium, hard) with different grid sizes
 - Timer to track how long it takes to complete the game
 - High score tracking using local storage
@@ -69,6 +73,7 @@ Here are some features planned for future implementation:
 - Themes with different card designs and symbols
 
 ### Technical Enhancements
+
 - State management with Vuex or Pinia for more complex game states
 - User accounts and online high score leaderboard
 - Multiplayer mode for competing with friends
@@ -76,6 +81,7 @@ Here are some features planned for future implementation:
 - Accessibility improvements for screen readers and keyboard navigation
 
 ### Visual Enhancements
+
 - More sophisticated card flip animations
 - Confetti animation on game completion
 - Dark mode support

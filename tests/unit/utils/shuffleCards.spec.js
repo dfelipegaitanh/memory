@@ -12,13 +12,13 @@ function shuffleCards(cards) {
   return shuffled;
 }
 
-describe('shuffleCards utility function', () => {
-  it('returns an array of the same length', () => {
+describe("shuffleCards utility function", () => {
+  it("returns an array of the same length", () => {
     const cards = [
-      { symbol: '🐶', flipped: false, matched: false },
-      { symbol: '🐱', flipped: false, matched: false },
-      { symbol: '🐭', flipped: false, matched: false },
-      { symbol: '🐹', flipped: false, matched: false }
+      { symbol: "🐶", flipped: false, matched: false },
+      { symbol: "🐱", flipped: false, matched: false },
+      { symbol: "🐭", flipped: false, matched: false },
+      { symbol: "🐹", flipped: false, matched: false },
     ];
 
     const shuffled = shuffleCards(cards);
@@ -26,28 +26,28 @@ describe('shuffleCards utility function', () => {
     expect(shuffled.length).toBe(cards.length);
   });
 
-  it('contains all the original cards', () => {
+  it("contains all the original cards", () => {
     const cards = [
-      { symbol: '🐶', flipped: false, matched: false },
-      { symbol: '🐱', flipped: false, matched: false },
-      { symbol: '🐭', flipped: false, matched: false },
-      { symbol: '🐹', flipped: false, matched: false }
+      { symbol: "🐶", flipped: false, matched: false },
+      { symbol: "🐱", flipped: false, matched: false },
+      { symbol: "🐭", flipped: false, matched: false },
+      { symbol: "🐹", flipped: false, matched: false },
     ];
 
     const shuffled = shuffleCards(cards);
 
     // Check that all original cards are in the shuffled array
-    cards.forEach(card => {
-      expect(shuffled.some(c => c.symbol === card.symbol)).toBe(true);
+    cards.forEach((card) => {
+      expect(shuffled.some((c) => c.symbol === card.symbol)).toBe(true);
     });
   });
 
-  it('does not modify the original array', () => {
+  it("does not modify the original array", () => {
     const cards = [
-      { symbol: '🐶', flipped: false, matched: false },
-      { symbol: '🐱', flipped: false, matched: false },
-      { symbol: '🐭', flipped: false, matched: false },
-      { symbol: '🐹', flipped: false, matched: false }
+      { symbol: "🐶", flipped: false, matched: false },
+      { symbol: "🐱", flipped: false, matched: false },
+      { symbol: "🐭", flipped: false, matched: false },
+      { symbol: "🐹", flipped: false, matched: false },
     ];
 
     const originalCards = [...cards];
@@ -58,19 +58,20 @@ describe('shuffleCards utility function', () => {
     expect(cards).toEqual(originalCards);
   });
 
-  it('shuffles the cards in a different order', () => {
+  it("shuffles the cards in a different order", () => {
     // Mock Math.random to return predictable values
     const originalRandom = Math.random;
-    Math.random = jest.fn()
+    Math.random = jest
+      .fn()
       .mockReturnValueOnce(0.5)
       .mockReturnValueOnce(0.1)
       .mockReturnValueOnce(0.9);
 
     const cards = [
-      { symbol: '🐶', flipped: false, matched: false },
-      { symbol: '🐱', flipped: false, matched: false },
-      { symbol: '🐭', flipped: false, matched: false },
-      { symbol: '🐹', flipped: false, matched: false }
+      { symbol: "🐶", flipped: false, matched: false },
+      { symbol: "🐱", flipped: false, matched: false },
+      { symbol: "🐭", flipped: false, matched: false },
+      { symbol: "🐹", flipped: false, matched: false },
     ];
 
     const shuffled = shuffleCards(cards);

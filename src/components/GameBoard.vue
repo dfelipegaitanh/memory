@@ -7,22 +7,22 @@
         <p>Matches: {{ matches }} / {{ totalPairs }}</p>
       </div>
       <div>
-        <button 
-          @click="startGame" 
+        <button
+          @click="startGame"
           class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2"
         >
-          {{ gameStarted ? 'Restart' : 'Start Game' }}
+          {{ gameStarted ? "Restart" : "Start Game" }}
         </button>
       </div>
     </div>
 
     <!-- Game board -->
-    <div 
+    <div
       class="grid grid-cols-4 gap-4 md:grid-cols-6"
       :class="{ 'pointer-events-none': !gameStarted }"
     >
-      <Card 
-        v-for="(card, index) in cards" 
+      <Card
+        v-for="(card, index) in cards"
         :key="index"
         :card="card"
         @flip="flipCard(index)"
@@ -38,12 +38,12 @@
 </template>
 
 <script>
-import Card from './Card.vue';
+import Card from "./Card.vue";
 
 export default {
-  name: 'GameBoard',
+  name: "GameBoard",
   components: {
-    Card
+    Card,
   },
   data() {
     return {
@@ -54,7 +54,28 @@ export default {
       moves: 0,
       matches: 0,
       totalPairs: 0,
-      symbols: ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🐔', '🐧', '🐦', '🦆', '🦉']
+      symbols: [
+        "🐶",
+        "🐱",
+        "🐭",
+        "🐹",
+        "🐰",
+        "🦊",
+        "🐻",
+        "🐼",
+        "🐨",
+        "🐯",
+        "🦁",
+        "🐮",
+        "🐷",
+        "🐸",
+        "🐵",
+        "🐔",
+        "🐧",
+        "🐦",
+        "🦆",
+        "🦉",
+      ],
     };
   },
   methods: {
@@ -65,22 +86,24 @@ export default {
       this.moves = 0;
       this.matches = 0;
       this.flippedCards = [];
-      
+
       // Create card pairs (using 8 pairs for a 4x4 grid)
       const selectedSymbols = this.symbols.slice(0, 8);
       this.totalPairs = selectedSymbols.length;
-      
+
       // Create pairs and shuffle
-      const cardPairs = [...selectedSymbols, ...selectedSymbols].map(symbol => ({
-        symbol,
-        flipped: false,
-        matched: false
-      }));
-      
+      const cardPairs = [...selectedSymbols, ...selectedSymbols].map(
+        (symbol) => ({
+          symbol,
+          flipped: false,
+          matched: false,
+        }),
+      );
+
       // Shuffle cards
       this.cards = this.shuffleCards(cardPairs);
     },
-    
+
     shuffleCards(cards) {
       const shuffled = [...cards];
       for (let i = shuffled.length - 1; i > 0; i--) {
@@ -89,41 +112,41 @@ export default {
       }
       return shuffled;
     },
-    
+
     flipCard(index) {
       // Prevent flipping if card is already flipped or matched
       if (this.cards[index].flipped || this.cards[index].matched) {
         return;
       }
-      
+
       // Prevent flipping more than 2 cards at once
       if (this.flippedCards.length === 2) {
         return;
       }
-      
+
       // Flip the card
       this.cards[index].flipped = true;
       this.flippedCards.push(index);
-      
+
       // Check for match if 2 cards are flipped
       if (this.flippedCards.length === 2) {
         this.moves++;
         this.checkForMatch();
       }
     },
-    
+
     checkForMatch() {
       const [index1, index2] = this.flippedCards;
       const card1 = this.cards[index1];
       const card2 = this.cards[index2];
-      
+
       if (card1.symbol === card2.symbol) {
         // Match found
         card1.matched = true;
         card2.matched = true;
         this.matches++;
         this.flippedCards = [];
-        
+
         // Check if game is over
         if (this.matches === this.totalPairs) {
           this.gameOver = true;
@@ -136,15 +159,17 @@ export default {
           this.flippedCards = [];
         }, 1000);
       }
-    }
+    },
   },
   mounted() {
     // Initialize empty cards
-    this.cards = Array(16).fill().map(() => ({
-      symbol: '',
-      flipped: false,
-      matched: false
-    }));
-  }
+    this.cards = Array(16)
+      .fill()
+      .map(() => ({
+        symbol: "",
+        flipped: false,
+        matched: false,
+      }));
+  },
 };
 </script>

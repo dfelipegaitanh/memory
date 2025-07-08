@@ -4,26 +4,49 @@
 
 // Mock Card component
 const Card = {
-  name: 'Card',
-  props: ['card'],
-  template: '<div>Card Component</div>'
+  name: "Card",
+  props: ["card"],
+  template: "<div>Card Component</div>",
 };
 
 // Create a GameBoard class with the same methods as the Vue component
 class GameBoardMock {
   constructor() {
-    this.cards = Array(16).fill().map(() => ({
-      symbol: '',
-      flipped: false,
-      matched: false
-    }));
+    this.cards = Array(16)
+      .fill()
+      .map(() => ({
+        symbol: "",
+        flipped: false,
+        matched: false,
+      }));
     this.flippedCards = [];
     this.gameStarted = false;
     this.gameOver = false;
     this.moves = 0;
     this.matches = 0;
     this.totalPairs = 0;
-    this.symbols = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🐔', '🐧', '🐦', '🦆', '🦉'];
+    this.symbols = [
+      "🐶",
+      "🐱",
+      "🐭",
+      "🐹",
+      "🐰",
+      "🦊",
+      "🐻",
+      "🐼",
+      "🐨",
+      "🐯",
+      "🦁",
+      "🐮",
+      "🐷",
+      "🐸",
+      "🐵",
+      "🐔",
+      "🐧",
+      "🐦",
+      "🦆",
+      "🦉",
+    ];
   }
 
   startGame() {
@@ -36,11 +59,13 @@ class GameBoardMock {
     const selectedSymbols = this.symbols.slice(0, 8);
     this.totalPairs = selectedSymbols.length;
 
-    const cardPairs = [...selectedSymbols, ...selectedSymbols].map(symbol => ({
-      symbol,
-      flipped: false,
-      matched: false
-    }));
+    const cardPairs = [...selectedSymbols, ...selectedSymbols].map(
+      (symbol) => ({
+        symbol,
+        flipped: false,
+        matched: false,
+      }),
+    );
 
     this.cards = this.shuffleCards(cardPairs);
   }
@@ -96,14 +121,14 @@ class GameBoardMock {
   }
 }
 
-describe('GameBoard.vue', () => {
+describe("GameBoard.vue", () => {
   let gameBoard;
 
   beforeEach(() => {
     gameBoard = new GameBoardMock();
   });
 
-  it('initializes with empty cards', () => {
+  it("initializes with empty cards", () => {
     // Check that cards array is initialized with 16 empty cards
     expect(gameBoard.cards.length).toBe(16);
     expect(gameBoard.gameStarted).toBe(false);
@@ -112,10 +137,10 @@ describe('GameBoard.vue', () => {
     expect(gameBoard.matches).toBe(0);
   });
 
-  it('starts the game when startGame is called', () => {
+  it("starts the game when startGame is called", () => {
     // Mock the shuffleCards method to return a predictable result
     const originalShuffleCards = gameBoard.shuffleCards;
-    gameBoard.shuffleCards = jest.fn(cards => cards);
+    gameBoard.shuffleCards = jest.fn((cards) => cards);
 
     // Trigger the startGame method
     gameBoard.startGame();
@@ -132,7 +157,7 @@ describe('GameBoard.vue', () => {
     gameBoard.shuffleCards = originalShuffleCards;
   });
 
-  it('flips a card when flipCard is called', () => {
+  it("flips a card when flipCard is called", () => {
     // Start the game
     gameBoard.startGame();
 
@@ -144,7 +169,7 @@ describe('GameBoard.vue', () => {
     expect(gameBoard.flippedCards).toContain(0);
   });
 
-  it('does not flip a card that is already flipped', () => {
+  it("does not flip a card that is already flipped", () => {
     // Start the game
     gameBoard.startGame();
 
@@ -159,7 +184,7 @@ describe('GameBoard.vue', () => {
     expect(gameBoard.flippedCards.length).toBe(1);
   });
 
-  it('does not flip a card that is already matched', () => {
+  it("does not flip a card that is already matched", () => {
     // Start the game
     gameBoard.startGame();
 
@@ -173,7 +198,7 @@ describe('GameBoard.vue', () => {
     expect(gameBoard.flippedCards.length).toBe(0);
   });
 
-  it('does not flip more than 2 cards at once', () => {
+  it("does not flip more than 2 cards at once", () => {
     // Start the game
     gameBoard.startGame();
 
@@ -187,7 +212,7 @@ describe('GameBoard.vue', () => {
     expect(gameBoard.flippedCards.length).toBe(2);
   });
 
-  it('increments moves when 2 cards are flipped', () => {
+  it("increments moves when 2 cards are flipped", () => {
     // Start the game
     gameBoard.startGame();
 
@@ -207,18 +232,18 @@ describe('GameBoard.vue', () => {
     gameBoard.checkForMatch = originalCheckForMatch;
   });
 
-  it('marks cards as matched when they have the same symbol', () => {
+  it("marks cards as matched when they have the same symbol", () => {
     // Start the game
     gameBoard.startGame();
 
     // Set up two cards with the same symbol
-    gameBoard.cards[0].symbol = '🐶';
-    gameBoard.cards[1].symbol = '🐶';
+    gameBoard.cards[0].symbol = "🐶";
+    gameBoard.cards[1].symbol = "🐶";
     gameBoard.flippedCards = [0, 1];
 
     // Mock setTimeout to avoid async issues
     const originalSetTimeout = global.setTimeout;
-    global.setTimeout = jest.fn(cb => cb());
+    global.setTimeout = jest.fn((cb) => cb());
 
     // Check for match
     gameBoard.checkForMatch();
@@ -233,15 +258,15 @@ describe('GameBoard.vue', () => {
     global.setTimeout = originalSetTimeout;
   });
 
-  it('flips cards back when they do not match', () => {
+  it("flips cards back when they do not match", () => {
     jest.useFakeTimers();
 
     // Start the game
     gameBoard.startGame();
 
     // Set up two cards with different symbols
-    gameBoard.cards[0].symbol = '🐶';
-    gameBoard.cards[1].symbol = '🐱';
+    gameBoard.cards[0].symbol = "🐶";
+    gameBoard.cards[1].symbol = "🐱";
     gameBoard.cards[0].flipped = true;
     gameBoard.cards[1].flipped = true;
     gameBoard.flippedCards = [0, 1];
@@ -264,7 +289,7 @@ describe('GameBoard.vue', () => {
     jest.useRealTimers();
   });
 
-  it('ends the game when all pairs are matched', () => {
+  it("ends the game when all pairs are matched", () => {
     // Start the game
     gameBoard.startGame();
 
@@ -273,13 +298,13 @@ describe('GameBoard.vue', () => {
     gameBoard.totalPairs = 8;
 
     // Match the last pair
-    gameBoard.cards[0].symbol = '🐶';
-    gameBoard.cards[1].symbol = '🐶';
+    gameBoard.cards[0].symbol = "🐶";
+    gameBoard.cards[1].symbol = "🐶";
     gameBoard.flippedCards = [0, 1];
 
     // Mock setTimeout to avoid async issues
     const originalSetTimeout = global.setTimeout;
-    global.setTimeout = jest.fn(cb => cb());
+    global.setTimeout = jest.fn((cb) => cb());
 
     // Check for match
     gameBoard.checkForMatch();
@@ -292,13 +317,13 @@ describe('GameBoard.vue', () => {
     global.setTimeout = originalSetTimeout;
   });
 
-  it('shuffles cards correctly', () => {
+  it("shuffles cards correctly", () => {
     // Create an array of cards
     const cards = [
-      { symbol: '🐶', flipped: false, matched: false },
-      { symbol: '🐱', flipped: false, matched: false },
-      { symbol: '🐭', flipped: false, matched: false },
-      { symbol: '🐹', flipped: false, matched: false }
+      { symbol: "🐶", flipped: false, matched: false },
+      { symbol: "🐱", flipped: false, matched: false },
+      { symbol: "🐭", flipped: false, matched: false },
+      { symbol: "🐹", flipped: false, matched: false },
     ];
 
     // Shuffle the cards
@@ -308,8 +333,8 @@ describe('GameBoard.vue', () => {
     expect(shuffled.length).toBe(cards.length);
 
     // Check that all original cards are in the shuffled array
-    cards.forEach(card => {
-      expect(shuffled.some(c => c.symbol === card.symbol)).toBe(true);
+    cards.forEach((card) => {
+      expect(shuffled.some((c) => c.symbol === card.symbol)).toBe(true);
     });
   });
 });
