@@ -1,10 +1,32 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# Check for merge conflicts
+echo "Checking for merge conflicts..."
+if grep -r "<<<<<<< HEAD" --include="*.js" --include="*.ts" --include="*.php" --include="*.json" .; then
+  echo "❌ Error: Merge conflicts detected. Please resolve them before committing."
+  exit 1
+fi
+
+# Check for large files
+echo "Checking for large files..."
+if find . -type f -not -path "./node_modules/*" -not -path "./vendor/*" -size +1M | grep -q .; then
+  echo "❌ Error: Large files detected (>1MB). Please remove them or add to .gitignore."
+  find . -type f -not -path "./node_modules/*" -not -path "./vendor/*" -size +1M
+  exit 1
+fi
+
 # Run format command and provide error message if it fails
 echo "Running code formatting..."
 if ! npm run format; then
   echo "❌ Error: Code formatting failed. Please fix the formatting issues before committing."
+  exit 1
+fi
+
+# Run TypeScript type checking
+echo "Running TypeScript type checking..."
+if [ -f "tsconfig.json" ] && ! npx tsc --noEmit; then
+  echo "❌ Error: TypeScript type checking failed. Please fix the type errors before committing."
   exit 1
 fi
 
@@ -13,6 +35,56 @@ echo "Running tests..."
 if ! npm test; then
   echo "❌ Error: Tests failed. Please fix the failing tests before committing."
   exit 1
+fi
+
+# Check test coverage (if tests exist)
+if [ -d "tests" ] || [ -d "__tests__" ] || [ -d "src/__tests__" ]; then
+  echo "Checking test coverage..."
+  if ! npm run test:coverage -- --coverageThreshold='{"global":{"statements":70,"branches":70,"functions":70,"lines":70}}'; then
+    echo "❌ Error: Test coverage is below the threshold. Please add more tests."
+    exit 1
+  fi
+fi
+
+# Run PHP static analysis if PHPStan is available
+if [ -f "vendor/bin/phpstan" ]; then
+  echo "Running PHP static analysis..."
+  if ! composer analyze; then
+    echo "❌ Error: PHP static analysis failed. Please fix the issues before committing."
+    exit 1
+  fi
+fi
+
+# Run PHP code quality checks if Rector is available
+if [ -f "vendor/bin/rector" ]; then
+  echo "Running PHP code quality checks..."
+  if ! composer rector:dry-run; then
+    echo "❌ Error: PHP code quality checks failed. Please fix the issues before committing."
+    exit 1
+  fi
+fi
+
+# Run PHP code formatting if Laravel Pint is available
+if [ -f "vendor/bin/pint" ]; then
+  echo "Running PHP code formatting..."
+  if ! composer pint:test; then
+    echo "❌ Error: PHP code formatting check failed. Please run 'composer pint' to fix the issues before committing."
+    exit 1
+  fi
+fi
+
+# Check for security vulnerabilities in dependencies
+echo "Checking for security vulnerabilities..."
+if command -v npm > /dev/null && ! npm audit --production --audit-level=high; then
+  echo "⚠️ Warning: Security vulnerabilities detected in npm dependencies."
+  # Not exiting with error as this might be too strict for some projects
+fi
+
+if command -v composer > /dev/null && [ -f "composer.lock" ]; then
+  if ! composer audit --no-dev; then
+    echo "⚠️ Warning: Security vulnerabilities detected in Composer dependencies."
+    # Not exiting with error as this might be too strict for some projects
+  fi
 fi
 
 echo "✅ Pre-commit checks passed successfully!"
